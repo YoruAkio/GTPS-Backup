@@ -1,0 +1,29 @@
+{
+  "name": "gtps-backup",
+  "version": "0.1.0",
+  "description": "a tools to backup growtopia private server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoruAkio/GTPS-Backup.git"
+  },
+  "keywords": [
+    "node",
+    "gtps"
+  ],
+  "author": "YoruAkio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YoruAkio/GTPS-Backup/issues"
+  },
+  "homepage": "https://github.com/YoruAkio/GTPS-Backup#readme",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "express": "^4.18.2",
+    "figlet": "^1.7.0",
+    "fs": "^0.0.1-security"
+  }
+}

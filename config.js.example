@@ -1,0 +1,12 @@
+module.exports = {
+    serverConfig: {
+        folderPlayer: '../database/players/',
+        folderWorld: '../database/worlds/',
+        folderBackup: '../database/backup/',
+    },
+    discordConfig: {
+        webhookUrl: '', // https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+        channelID: '', // https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-
+        messageID: '', // https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-
+    },
+};
