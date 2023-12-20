@@ -27,6 +27,8 @@ npm start
 ```
 $SERVER_CORE/
 ├── GTPS-Backup/
+│   ├── index.js
+│   └── ...etc
 ├── database/
 │   ├── players/
 │   ├── worlds/
