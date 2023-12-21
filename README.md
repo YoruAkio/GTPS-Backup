@@ -1,9 +1,11 @@
 # GTPS-Backup
 
 ## Note
+
 I was bored so I made this script, this script is not perfect and I don't know if this script is useful or not, but I hope this script can help you, This repository in unmaintained, so I won't update this repository anymore (maybe), but if you want to update this repository, you can fork this repository and update it yourself.
 
 ## Report Bugs
+
 If you find a bug, please report it to me on [Discord](https://discord.gg/JGSYpDAvue) or [Telegram](https://t.me/YoruAkio), I will try to fix it as soon as possible.
 
 ## How to use?
@@ -22,7 +24,9 @@ npm install
 
 3. Rename the config file from `config.example.json` to `config.json` and fill it with your own data
 
-4. Run the script
+4. Run the setup script (setup.bat) as administrator
+
+5. Run the script
 
 ```bash
 npm start
