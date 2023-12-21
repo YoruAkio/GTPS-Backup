@@ -14,18 +14,9 @@ const client = new WebhookClient({
 
 // Innitialize
 console.clear();
-console.log(
-    figlet.textSync('GTPS Backup', {
-        font: 'Ghost',
-        horizontalLayout: 'default',
-        verticalLayout: 'default',
-        width: 80,
-        whitespaceBreak: true,
-    }),
-);
 
 // Please if you use this source code don't remove this credits
-console.log('Made with ❤️ by YoruAkio');
+require('./utils/consoleIntro.js');
 
 // Check the all folder hat required
 if (
