@@ -12,10 +12,8 @@ const client = new WebhookClient({
     url: config.discordConfig.webhookUrl,
 });
 
-// Innitialize
-console.clear();
-
 // Please if you use this source code don't remove this credits
+console.clear();
 require('./utils/consoleIntro.js');
 
 // Check the all folder hat required
@@ -46,4 +44,4 @@ setInterval(() => {
         .catch(err => {
             console.log(err);
         });
-}, 20000); // 5 minutes
+}, 30000); // 5 minutes
