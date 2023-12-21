@@ -6,7 +6,7 @@ I was bored so I made this script, this script is not perfect and I don't know i
 
 ## Report Bugs
 
-If you find a bug, please report it to me on [Discord](https://discord.gg/JGSYpDAvue) or [Telegram](https://t.me/YoruAkio), I will try to fix it as soon as possible.
+This repository is hasn't been tested yet, so if you find a bug, please report it to me on [Discord](https://discord.gg/JGSYpDAvue) or [Telegram](https://t.me/YoruAkio), I will try to fix it as soon as possible.
 
 ## How to use?
 
@@ -51,4 +51,4 @@ $SERVER_CORE/
 
 1. By fork and give a star to this repository
 2. Ko-fi: [Overseas](https://ko-fi.com/yoruakio)
-3. Trakteer: [Indonesia](https://tracer.me/yoruakio)
+3. Saweria: [Indonesia](https://saweria.co/YoruAkio)
