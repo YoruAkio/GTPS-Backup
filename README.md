@@ -1,5 +1,11 @@
 # GTPS-Backup
 
+## Note
+I was bored so I made this script, this script is not perfect and I don't know if this script is useful or not, but I hope this script can help you, This repository in unmaintained, so I won't update this repository anymore (maybe), but if you want to update this repository, you can fork this repository and update it yourself.
+
+## Report Bugs
+If you find a bug, please report it to me on [Discord](https://discord.gg/JGSYpDAvue) or [Telegram](https://t.me/YoruAkio), I will try to fix it as soon as possible.
+
 ## How to use?
 
 1. Get the source code of this repository
