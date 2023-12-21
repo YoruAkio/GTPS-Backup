@@ -3,6 +3,12 @@ module.exports = {
         folderPlayer: '../database/players/',
         folderWorld: '../database/worlds/',
         folderBackup: '../database/backup/',
+        databaseFolder: '../database',
+
+        archiveName: 'ServerBackup-Database',
+        archivePassword: 'ASD',
+        archivePasswordiSActive: false,
+        backupCooldown: 60, // in seconds
     },
     discordConfig: {
         webhookUrl: '', // https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
