@@ -1,15 +1,18 @@
 const fs = require('fs');
-const figlet = require('figlet');
+const Discord = require('discord.js');
+const DiscordUtils = require('./lib/discord.js');
 const { EmbedBuilder, WebhookClient } = require('discord.js');
-const FormData = require('form-data');
 const config = require('./config.js');
-const axios = require('axios');
-const { exec } = require('child_process');
 const { exit } = require('process');
 const helper = require('./lib/helper.js');
 
 const client = new WebhookClient({
     url: config.discordConfig.webhookUrl,
+});
+
+const discord = new DiscordUtils(client, {
+    config: require('./config.js'),
+    discord: Discord,
 });
 
 // Please if you use this source code don't remove this credits
@@ -27,7 +30,7 @@ if (
     exit();
 }
 
-setInterval(() => {
+setTimeout(() => {
     helper
         .makeDatabaseArchive(
             'a -r',
@@ -35,13 +38,44 @@ setInterval(() => {
             `${config.serverConfig.databaseFolder}`,
         )
         .then(() => {
-            console.log('Uploading to crepe.moe...');
+            console.log('Uploading to discord...');
 
-            setTimeout(() => {
-                helper.uploadDatabase();
-            }, 5000);
+            const fileBackup = fs.readFileSync(
+                `./Backup/${config.serverConfig.archiveName}.rar`,
+            );
+
+            discord
+                .sendCustomMessage({
+                    message: `Database has been archived with name ${config.serverConfig.archiveName}.rar`,
+                    embeds: new EmbedBuilder()
+                        .setTitle('GracePS-Database.rar')
+                        .setDescription(
+                            `Your archive will be moved into Backup folder\n\n**Note:**\nIf you want to download the archive, you can download it from the attachment below.`,
+                        )
+                        .setColor('#00ff00')
+                        .setTimestamp(),
+                    files: {
+                        attachment: fileBackup,
+                        name: `${config.serverConfig.archiveName}.rar`,
+                    },
+                })
+                .then(() => {
+                    const date = new Date();
+                    const formattedDate = `${date.getDate()}-${
+                        date.getMonth() + 1
+                    }-${date.getFullYear()}_${date.getHours()}-${date.getMinutes()}`;
+
+                    fs.rename(
+                        `./Backup/${config.serverConfig.archiveName}.rar`,
+                        `./Backup/${config.serverConfig.archiveName}_${formattedDate}.rar`,
+                        err => {
+                            if (err) throw err;
+                            console.log('Rename complete!');
+                        },
+                    );
+                });
         })
         .catch(err => {
             console.log(err);
         });
-}, 30000); // 5 minutes
+}, config.serverConfig.backupCooldown * 1000);
