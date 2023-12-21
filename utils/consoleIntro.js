@@ -1,11 +1,15 @@
+const { ansiColor } = require('./mainUtils.js');
 const gradient = require('gradient-string');
 const figlet = require('figlet');
+const Logger = require('./logger.js');
 
 const devName = figlet.textSync('GTPS Backup', { font: 'ANSI Shadow' });
 
 console.info(gradient.fruit(devName));
 console.info(
-    gradient.instagram('Current Version: ' + require('./package.json').version),
+    gradient.instagram(
+        'Current Version: ' + require('../package.json').version,
+    ),
 );
 
 const clearStyle = ansiColor(0, 'sgr');
@@ -20,4 +24,9 @@ Logger.info(
         'Copyright (C) 2023 YoruAkio. All rights reserved.' +
         clearStyle,
 );
-Logger.info('Client', 'Website: https://airi.dev' + clearStyle + `\n`);
+Logger.info(
+    'Client',
+    'Current Repository: https://github/YoruAkio/GTPS-Backup' +
+        clearStyle +
+        `\n`,
+);
