@@ -2,7 +2,7 @@
 
 ## Note
 
-I was bored so I made this script, this script is not perfect and I don't know if this script is useful or not, but I hope this script can help you, **This repository in unmaintained**, so I won't update this repository anymore (maybe), but if you want to update this repository, you can fork this repository and update it yourself.
+**This repository in unmaintained**, so I won't update this repository anymore (maybe), but if you want to update this repository, you can fork this repository and update it yourself, I have new project that I'm working on, some feature from this repository will be added to my new project, so stay tuned!
 
 ## Report Bugs
 
@@ -24,7 +24,7 @@ npm install
 
 3. Rename the config file from `config.example.json` to `config.json` and fill it with your own data
 
-4. Run the setup script (setup.bat) as administrator
+4. Run the setup script **(setup.bat) as administrator**
 
 5. Run the script
 
