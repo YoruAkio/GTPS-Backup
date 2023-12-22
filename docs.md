@@ -1,3 +1,15 @@
+# TIPS
+
+## Updating the script
+
+```bash
+git pull
+
+# if you found an error from git pull, try this
+git fetch --all
+git reset --hard origin/master
+```
+
 ## Windows Command Promt
 
 Move File on Windows Command Promt:
