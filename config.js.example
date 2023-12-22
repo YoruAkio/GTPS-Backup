@@ -8,7 +8,9 @@ module.exports = {
         archiveName: 'ServerBackup-Database',
         archivePassword: 'ASD',
         archivePasswordiSActive: false,
-        backupCooldown: 60, // in seconds
+        archiveExpires: 1, // in days, default is 14 days
+        backupCooldown: 60, // in seconds or 1 * 60 = 1 minute
+        backupAllDatabase: true, // true or false, backup all files in database folder
     },
     discordConfig: {
         webhookUrl: '', // https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks

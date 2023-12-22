@@ -1,7 +1,7 @@
 const { ansiColor } = require('./mainUtils.js');
 const gradient = require('gradient-string');
 const figlet = require('figlet');
-const Logger = require('./logger.js');
+const Logger = require('./Logger.js');
 
 const devName = figlet.textSync('GTPS Backup', { font: 'ANSI Shadow' });
 

@@ -30,52 +30,90 @@ if (
     exit();
 }
 
-setTimeout(() => {
-    helper
-        .makeDatabaseArchive(
-            'a -r',
-            `${config.serverConfig.archiveName}.rar`,
-            `${config.serverConfig.databaseFolder}`,
-        )
-        .then(() => {
+async function backupDatabase() {
+    try {
+        if (config.serverConfig.backupAllDatabase === true) {
+            await helper.archiveAllDatabase()
+
             console.log('Uploading to discord...');
 
-            const fileBackup = fs.readFileSync(
+            const fileBackup = await fs.promises.readFile(
                 `./Backup/${config.serverConfig.archiveName}.rar`,
             );
 
-            discord
-                .sendCustomMessage({
-                    message: `Database has been archived with name ${config.serverConfig.archiveName}.rar`,
-                    embeds: new EmbedBuilder()
-                        .setTitle('GracePS-Database.rar')
-                        .setDescription(
-                            `Your archive will be moved into Backup folder\n\n**Note:**\nIf you want to download the archive, you can download it from the attachment below.`,
-                        )
-                        .setColor('#00ff00')
-                        .setTimestamp(),
-                    files: {
-                        attachment: fileBackup,
-                        name: `${config.serverConfig.archiveName}.rar`,
-                    },
-                })
-                .then(() => {
-                    const date = new Date();
-                    const formattedDate = `${date.getDate()}-${
-                        date.getMonth() + 1
-                    }-${date.getFullYear()}_${date.getHours()}-${date.getMinutes()}`;
+            const link = await helper.uploadToFileio(
+                fileBackup,
+                `${config.serverConfig.archiveName}.rar`,
+            );
 
-                    fs.rename(
-                        `./Backup/${config.serverConfig.archiveName}.rar`,
-                        `./Backup/${config.serverConfig.archiveName}_${formattedDate}.rar`,
-                        err => {
-                            if (err) throw err;
-                            console.log('Rename complete!');
+            await discord.sendCustomMessage({
+                message: `All databases have been archived.`,
+                embeds: new EmbedBuilder()
+                    .setTitle('All Databases Archived')
+                    .setDescription(
+                        `All databases have been archived and uploaded into file.io\nNOTE: If you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
+                    )
+                    .setFields([
+                        {
+                            name: 'Download Link (file.io)',
+                            value: link,
                         },
-                    );
-                });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-}, config.serverConfig.backupCooldown * 1000);
+                    ])
+                    .setColor('#00ff00')
+                    .setTimestamp(),
+                files: {
+                    attachment: fileBackup,
+                    name: `${config.serverConfig.archiveName}.rar`,
+                },
+            });
+
+            helper.renameAfterSend();
+        } else {
+            await helper.makeDatabaseArchive(
+                'a -r',
+                `${config.serverConfig.archiveName}.rar`,
+                `${config.serverConfig.databaseFolder}`,
+            );
+
+            console.log('Uploading to discord...');
+
+            const fileBackup = await fs.promises.readFile(
+                `./Backup/${config.serverConfig.archiveName}.rar`,
+            );
+
+            const link = await helper.uploadToFileio(
+                fileBackup,
+                `${config.serverConfig.archiveName}.rar`,
+            );
+
+            await discord.sendCustomMessage({
+                message: `Database has been archived with name ${config.serverConfig.archiveName}.rar`,
+                embeds: new EmbedBuilder()
+                    .setTitle('GracePS-Database.rar')
+                    .setDescription(
+                        `Your database has been archived and uploaded into file.io\n\n**Note:**\nIf you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
+                    )
+                    .setFields([
+                        {
+                            name: 'Download Link (file.io)',
+                            value: link,
+                        },
+                    ])
+                    .setColor('#00ff00')
+                    .setTimestamp(),
+                files: {
+                    attachment: fileBackup,
+                    name: `${config.serverConfig.archiveName}.rar`,
+                },
+            });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// Run backup immediately when the program starts
+backupDatabase();
+
+// Then run backup repeatedly after the cooldown period
+setInterval(backupDatabase, config.serverConfig.backupCooldown * 1000 * 60);
