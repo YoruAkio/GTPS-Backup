@@ -28,7 +28,7 @@ async function backupDatabase() {
             await helper.archiveAllDatabase().then(async res => {
                 setTimeout(async () => {
                     const fileBackup = await fs.promises.readFile(
-                        `./Backup/${config.serverConfig.archiveName}.rar`,
+                        `.${config.serverConfig.folderBackup}/${config.serverConfig.archiveName}.rar`,
                     );
 
                     const link = await helper.uploadToFileio(
@@ -80,7 +80,7 @@ async function backupDatabase() {
                     console.log('Uploading to discord...');
 
                     const fileBackup = await fs.promises.readFile(
-                        `./Backup/${config.serverConfig.archiveName}.rar`,
+                        `.${config.serverConfig.folderBackup}/${config.serverConfig.archiveName}.rar`,
                     );
 
                     const link = await helper.uploadToFileio(
