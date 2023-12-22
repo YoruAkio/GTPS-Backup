@@ -25,79 +25,98 @@ helper.checkRequiredFolder();
 async function backupDatabase() {
     try {
         if (config.serverConfig.backupAllDatabase === true) {
-            await helper.archiveAllDatabase().then(async () => {
-                console.log('Uploading to discord...');
+            await helper.archiveAllDatabase().then(async res => {
+                setTimeout(async () => {
+                    const fileBackup = await fs.promises.readFile(
+                        `./Backup/${config.serverConfig.archiveName}.rar`,
+                    );
 
-            const fileBackup = await fs.promises.readFile(
-                `./Backup/${config.serverConfig.archiveName}.rar`,
-            );
+                    const link = await helper.uploadToFileio(
+                        fileBackup,
+                        `${config.serverConfig.archiveName}.rar`,
+                    );
+                    console.log('Uploading to discord...');
 
-            const link = await helper.uploadToFileio(
-                fileBackup,
-                `${config.serverConfig.archiveName}.rar`,
-            );
-
-            await discord.sendCustomMessage({
-                message: `All databases have been archived.`,
-                embeds: new EmbedBuilder()
-                    .setTitle('All Databases Archived')
-                    .setDescription(
-                        `All databases have been archived and uploaded into file.io\nNOTE: If you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
-                    )
-                    .setFields([
-                        {
-                            name: 'Download Link (file.io)',
-                            value: link,
+                    await discord.sendCustomMessage({
+                        message: `All databases have been archived.`,
+                        embeds: new EmbedBuilder()
+                            .setTitle('All Databases Archived')
+                            .setDescription(
+                                `All databases have been archived and uploaded into file.io\nNOTE: If you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
+                            )
+                            .setFields([
+                                {
+                                    name: 'Download Link (file.io)',
+                                    value: link,
+                                },
+                                {
+                                    name: 'Archive Name',
+                                    value: res.data.name,
+                                },
+                                {
+                                    name: 'Archive Size',
+                                    value: res.data.size,
+                                },
+                            ])
+                            .setColor('#00ff00')
+                            .setTimestamp(),
+                        files: {
+                            attachment: fileBackup,
+                            name: `${config.serverConfig.archiveName}.rar`,
                         },
-                    ])
-                    .setColor('#00ff00')
-                    .setTimestamp(),
-                files: {
-                    attachment: fileBackup,
-                    name: `${config.serverConfig.archiveName}.rar`,
-                },
-            });
+                    });
+                }, 2000);
 
-            helper.renameAfterSend();
-            })
+                helper.renameAfterSend();
+            });
         } else {
-            await helper.makeDatabaseArchive(
-                'a -r',
-                `${config.serverConfig.archiveName}.rar`,
-                `${config.serverConfig.databaseFolder}`,
-            );
+            await helper
+                .makeDatabaseArchive(
+                    'a -r',
+                    `${config.serverConfig.archiveName}.rar`,
+                    `${config.serverConfig.databaseFolder}`,
+                )
+                .then(async res => {
+                    console.log('Uploading to discord...');
 
-            console.log('Uploading to discord...');
+                    const fileBackup = await fs.promises.readFile(
+                        `./Backup/${config.serverConfig.archiveName}.rar`,
+                    );
 
-            const fileBackup = await fs.promises.readFile(
-                `./Backup/${config.serverConfig.archiveName}.rar`,
-            );
+                    const link = await helper.uploadToFileio(
+                        fileBackup,
+                        `${config.serverConfig.archiveName}.rar`,
+                    );
 
-            const link = await helper.uploadToFileio(
-                fileBackup,
-                `${config.serverConfig.archiveName}.rar`,
-            );
-
-            await discord.sendCustomMessage({
-                message: `Database has been archived with name ${config.serverConfig.archiveName}.rar`,
-                embeds: new EmbedBuilder()
-                    .setTitle('GracePS-Database.rar')
-                    .setDescription(
-                        `Your database has been archived and uploaded into file.io\n\n**Note:**\nIf you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
-                    )
-                    .setFields([
-                        {
-                            name: 'Download Link (file.io)',
-                            value: link,
+                    await discord.sendCustomMessage({
+                        message: `Database has been archived with name ${config.serverConfig.archiveName}.rar`,
+                        embeds: new EmbedBuilder()
+                            .setTitle('GracePS-Database.rar')
+                            .setDescription(
+                                `Your database has been archived and uploaded into file.io\n\n**Note:**\nIf you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
+                            )
+                            .setFields([
+                                {
+                                    name: 'Download Link (file.io)',
+                                    value: link,
+                                },
+                                {
+                                    name: 'Archive Name',
+                                    value: res.data.name,
+                                },
+                                {
+                                    name: 'Archive Size',
+                                    value: res.data.size,
+                                },
+                            ])
+                            .setColor('#00ff00')
+                            .setTimestamp(),
+                        files: {
+                            attachment: fileBackup,
+                            name: `${config.serverConfig.archiveName}.rar`,
                         },
-                    ])
-                    .setColor('#00ff00')
-                    .setTimestamp(),
-                files: {
-                    attachment: fileBackup,
-                    name: `${config.serverConfig.archiveName}.rar`,
-                },
-            });
+                    });
+                });
         }
     } catch (err) {
         console.log(err);
