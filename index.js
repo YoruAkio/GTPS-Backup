@@ -20,22 +20,13 @@ console.clear();
 require('./utils/consoleIntro.js');
 
 // Check the all folder hat required
-if (
-    !fs.existsSync(config.serverConfig.folderWorld) ||
-    !fs.existsSync(config.serverConfig.folderPlayer)
-) {
-    console.log(
-        `Your database folder or world folder or player folder is not found!`,
-    );
-    exit();
-}
+helper.checkRequiredFolder();
 
 async function backupDatabase() {
     try {
         if (config.serverConfig.backupAllDatabase === true) {
-            await helper.archiveAllDatabase()
-
-            console.log('Uploading to discord...');
+            await helper.archiveAllDatabase().then(async () => {
+                console.log('Uploading to discord...');
 
             const fileBackup = await fs.promises.readFile(
                 `./Backup/${config.serverConfig.archiveName}.rar`,
@@ -68,6 +59,7 @@ async function backupDatabase() {
             });
 
             helper.renameAfterSend();
+            })
         } else {
             await helper.makeDatabaseArchive(
                 'a -r',
