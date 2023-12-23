@@ -2,7 +2,7 @@ module.exports = {
     serverConfig: {
         folderPlayer: '../database/players/',
         folderWorld: '../database/worlds/',
-        folderBackup: '../database/backup/',
+        folderBackup: './Backup/',
         databaseFolder: '../database',
 
         archiveName: 'ServerBackup-Database',
