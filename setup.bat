@@ -2,7 +2,7 @@
 setlocal
 
 :: Download WinRAR
-powershell -Command "Invoke-WebRequest -OutFile '%~dp0winrar-x64-610.exe' -Uri 'https://www.rarlab.com/rar/winrar-x64-610.exe'"
+powershell -Command "Invoke-WebRequest -OutFile '%~dp0winrar-x64-624.exe' -Uri 'https://www.rarlab.com/rar/winrar-x64-624.exe'"
 
 :: Install WinRAR silently
 start /wait winrar-x64-624.exe /s
