@@ -18,11 +18,39 @@ jobs:
             - name: Install pkg
               run: npm install -g pkg
 
-            - name: Build Executable
-              run: pkg index.js --targets node18-win-x64
+            - name: Install dependencies
+              run: npm install
 
-            - name: Upload Executable
-              uses: actions/upload-artifact@v2
+            - name: Build Executable
+              run: pkg . -d -C GZip
+
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  name: executables
-                  path: index-win.exe
+                  tag_name: ${{ github.run_number }}
+                  release_name: Release ${{ github.run_number }}
+                  draft: false
+                  prerelease: false
+
+            - name: Upload Linux Executable
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./gtps-backup-linux
+                  asset_name: gtps-backup-linux
+                  asset_content_type: application/octet-stream
+
+            - name: Upload Windows Executable
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./gtps-backup-win.exe
+                  asset_name: gtps-backup-win.exe
+                  asset_content_type: application/octet-stream

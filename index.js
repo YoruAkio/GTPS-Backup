@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const DiscordUtils = require('./lib/discord.js');
 const { EmbedBuilder, WebhookClient } = require('discord.js');
-const config = require('./config.js');
+const config = require(process.cwd() + '/config.js');
 const { exit } = require('process');
 const helper = require('./lib/helper.js');
 
@@ -13,7 +13,7 @@ const client = new WebhookClient({
 client.config = config;
 
 const discord = new DiscordUtils(client, {
-    config: require('./config.js'),
+    config: require(process.cwd() + '/config.js'),
     discord: Discord,
 });
 
@@ -37,12 +37,6 @@ async function backupDatabase() {
                         `${config.serverConfig.folderBackup}/${config.serverConfig.archiveName}.rar`,
                     );
 
-                    const link = await helper.uploadToFileio(
-                        fileBackup,
-                        `${config.serverConfig.archiveName}.rar`,
-                    );
-
-                    console.log(`Here is the link: ${link}`);
                     console.log('Uploading to discord...');
 
                     await discord
@@ -54,10 +48,6 @@ async function backupDatabase() {
                                     `All databases have been archived and uploaded into file.io\nNOTE: If you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
                                 )
                                 .setFields([
-                                    {
-                                        name: 'Download Link (file.io)',
-                                        value: link,
-                                    },
                                     {
                                         name: 'Archive Name',
                                         value: fileInfo.data.name,
@@ -96,11 +86,6 @@ async function backupDatabase() {
                         const fileInfo = helper.getFileInfo(
                             `${config.serverConfig.folderBackup}/${config.serverConfig.archiveName}.rar`,
                         );
-
-                        const link = await helper.uploadToFileio(
-                            fileBackup,
-                            `${config.serverConfig.archiveName}.rar`,
-                        );
                         console.log('Uploading to discord...');
 
                         await discord
@@ -112,10 +97,6 @@ async function backupDatabase() {
                                         `Your database has been archived and uploaded into file.io\n\n**Note:**\nIf you want to download the archive, you can download it from the attachment below and the link will be expired in 14 days.`,
                                     )
                                     .setFields([
-                                        {
-                                            name: 'Download Link (file.io)',
-                                            value: link,
-                                        },
                                         {
                                             name: 'Archive Name',
                                             value: fileInfo.data.name,

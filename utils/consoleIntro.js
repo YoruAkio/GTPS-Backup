@@ -1,10 +1,18 @@
 const { ansiColor } = require('./mainUtils.js');
 const gradient = require('gradient-string');
-const figlet = require('figlet');
+// const figlet = require('figlet');
 const Logger = require('./Logger.js');
 
-const devName = figlet.textSync('GTPS Backup', { font: 'ANSI Shadow' });
+const devName = `
 
+ ██████╗████████╗██████╗ ███████╗      ██████╗  █████╗  ██████╗██╗  ██╗██╗   ██╗██████╗ 
+██╔════╝╚══██╔══╝██╔══██╗██╔════╝      ██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██║   ██║██╔══██╗
+██║  ███╗  ██║   ██████╔╝███████╗█████╗██████╔╝███████║██║     █████╔╝ ██║   ██║██████╔╝
+██║   ██║  ██║   ██╔═══╝ ╚════██║╚════╝██╔══██╗██╔══██║██║     ██╔═██╗ ██║   ██║██╔═══╝ 
+╚██████╔╝  ██║   ██║     ███████║      ██████╔╝██║  ██║╚██████╗██║  ██╗╚██████╔╝██║     
+ ╚═════╝   ╚═╝   ╚═╝     ╚══════╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     
+                                                                                        
+`;
 console.info(gradient.fruit(devName));
 console.info(
     gradient.instagram(
