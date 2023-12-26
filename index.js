@@ -85,7 +85,7 @@ async function backupDatabase() {
                 .makeDatabaseArchive(
                     'a -r',
                     `${config.serverConfig.archiveName}.rar`,
-                    `${config.serverConfig.databaseFolder}`,
+                    `${config.serverConfig.folderPlayer} ${config.serverConfig.folderWorld}`,
                 )
                 .then(async () => {
                     setTimeout(async () => {
