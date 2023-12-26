@@ -1,6 +1,6 @@
-name: Build Executable and Release
+name: Build Executable
 
-on: [push]
+on: [workflow_dispatch]
 
 jobs:
     build:
@@ -21,24 +21,8 @@ jobs:
             - name: Build Executable
               run: pkg index.js --targets node18-win-x64
 
-            - name: Create Release
-              id: create_release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Upload Executable
+              uses: actions/upload-artifact@v2
               with:
-                  tag_name: ${{ github.sha }}
-                  release_name: Release ${{ github.sha }}
-                  draft: false
-                  prerelease: false
-
-            - name: Upload Release Asset
-              id: upload-release-asset
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                  upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./index-win.exe
-                  asset_name: index-win.exe
-                  asset_content_type: application/octet-stream
+                  name: executables
+                  path: index-win.exe
