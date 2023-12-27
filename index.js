@@ -21,7 +21,6 @@ const discord = new DiscordUtils(client, {
 console.clear();
 require('./utils/consoleIntro.js');
 
-// Check the all folder hat required
 helper.checkRequiredFolder();
 
 async function backupDatabase() {
