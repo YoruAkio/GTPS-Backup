@@ -42,6 +42,13 @@ jobs:
                   cp backup-win.exe gtps-backup-win
                   zip gtps-backup-win.zip gtps-backup-win/*
 
+            - name: Generate changelog
+              id: changelog
+              run: |
+                  echo 'changelog<<EOF' >> $GITHUB_ENV
+                  git log --pretty=format:"- %h - %s" | sed 's/$/<br\/>/'
+                  echo 'EOF' >> $GITHUB_ENV
+
             - name: Get version
               id: packagejson
               uses: martinbeentjes/npm-get-version-action@v1.1.0
@@ -53,7 +60,12 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   tag_name: ${{ steps.packagejson.outputs.current-version }}
-                  release_name: Release ${{ steps.packagejson.outputs.current-version }}
+                  release_name: GTPS-Backup v${{ steps.packagejson.outputs.current-version }}
+                  body: |
+                      Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
+                      
+                      🔄️ Changelog
+                      ${{ env.changelog }}
                   draft: false
                   prerelease: false
 
