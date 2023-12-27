@@ -21,8 +21,30 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Build Executable
-              run: pkg . -d -C GZip
+            - name: Build Linux Executable
+              run: pkg . --targets node18-linux-x64 --output backup-linux
+
+            - name: Build Windows Executable
+              run: pkg . --targets node18-win-x64 --output backup-win.exe
+
+            - name: Zip executables and specified files
+              run: |
+                  mkdir backup-linux
+                  cp LICENSE backup-linux
+                  cp config.js.example backup-linux
+                  cp README.md backup-linux
+                  cp backup-linux backup-linux
+                  zip gtps-backup-linux.zip backup-linux/*
+                  mkdir backup-win
+                  cp LICENSE backup-win
+                  cp config.js.example backup-win
+                  cp README.md backup-win
+                  cp backup-win.exe backup-win
+                  zip gtps-backup-win.zip backup-win/*
+
+            - name: Get version
+              id: packagejson
+              uses: martinbeentjes/npm-get-version-action@v1.1.0
 
             - name: Create Release
               id: create_release
@@ -30,27 +52,27 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: ${{ github.run_number }}
-                  release_name: Release ${{ github.run_number }}
+                  tag_name: ${{ steps.packagejson.outputs.current-version }}
+                  release_name: Release ${{ steps.packagejson.outputs.current-version }}
                   draft: false
                   prerelease: false
 
-            - name: Upload Linux Executable
+            - name: Upload Linux Zip
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./gtps-backup-linux
-                  asset_name: gtps-backup-linux
-                  asset_content_type: application/octet-stream
+                  asset_path: ./gtps-backup-linux.zip
+                  asset_name: gtps-backup-linux.zip
+                  asset_content_type: application/zip
 
-            - name: Upload Windows Executable
+            - name: Upload Windows Zip
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./gtps-backup-win.exe
-                  asset_name: gtps-backup-win.exe
-                  asset_content_type: application/octet-stream
+                  asset_path: ./gtps-backup-win.zip
+                  asset_name: gtps-backup-win.zip
+                  asset_content_type: application/zip
