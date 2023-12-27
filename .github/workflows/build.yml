@@ -65,7 +65,7 @@ jobs:
                       Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
                       
                       🔄️ Changelog
-                      ${{ env.changelog }}
+                        ${{ steps.changelog.outputs.changelog }}
                   draft: false
                   prerelease: false
 
