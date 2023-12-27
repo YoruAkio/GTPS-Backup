@@ -10,6 +10,14 @@ git fetch --all
 git reset --hard origin/master
 ```
 
+## Easy way to use this script
+
+1. Download the executable file from [Releases](https://github.com/yoruakio/GTPS-Backup/releases)
+2. Extract the file same as you database folder
+3. Rename the config from `config.js.example` to `config.js`
+4. Edit the config file
+5. Run the executable file
+
 ## Windows Command Promt
 
 Move File on Windows Command Promt:
