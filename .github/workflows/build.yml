@@ -1,6 +1,11 @@
 name: Build Executable
 
-on: [workflow_dispatch]
+on:
+    push:
+        paths-ignore:
+            - 'README.md'
+            - 'LICENSE'
+            - 'config.js.example'
 
 jobs:
     build:
@@ -46,7 +51,7 @@ jobs:
               id: changelog
               run: |
                   echo "::set-output name=changelog::$(git log --pretty=format:"- %h - %s" | sed 's/$/<br\/>/')"
-                  
+
             - name: Get version
               id: packagejson
               uses: martinbeentjes/npm-get-version-action@v1.1.0
@@ -61,7 +66,7 @@ jobs:
                   release_name: GTPS-Backup v${{ steps.packagejson.outputs.current-version }}
                   body: |
                       Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
-                      
+
                       🔄️ Changelog
                       ${{ steps.changelog.outputs.changelog }}
                   draft: false
