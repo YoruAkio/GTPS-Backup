@@ -65,8 +65,8 @@ jobs:
                   draft: false
                   prerelease: false
 
-            - name: Get second latest release
-              id: second_latest_release
+            - name: Get latest release
+              id: latest_release
               uses: actions/github-script@v4
               with:
                   script: |
@@ -76,21 +76,21 @@ jobs:
                         per_page: 100
                       });
                       const sortedTags = data.map(release => release.tag_name).sort((a, b) => b.localeCompare(a, undefined, { numeric: true, ignorePunctuation: true }));
-                      return sortedTags[1];
+                      return sortedTags[0];
 
             - name: Update Release
               id: update_release
               uses: actions/github-script@v4
               with:
                   script: |
-                      const secondLatestVersion = `${{ steps.second_latest_release.outputs.result }}`.replace(/"/g, '');
+                      const latestVersion = `${{ steps.latest_release.outputs.result }}`.replace(/"/g, '');
                       await github.repos.updateRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         release_id: ${{ steps.create_release.outputs.id }},
                         body: `# 🔄️ Changelog
 
-                        **Full Changelog: [\`v${secondLatestVersion}...v${{ steps.packagejson.outputs.current-version }}\`](https://github.com/YoruAkio/GTPS-Backup/compare/v${secondLatestVersion}...v${{ steps.packagejson.outputs.current-version }})**`
+                        **Full Changelog: [\`${latestVersion}...v${{ steps.packagejson.outputs.current-version }}\`](https://github.com/YoruAkio/GTPS-Backup/compare/v${latestVersion}...v${{ steps.packagejson.outputs.current-version }})**`
                       });
 
             - name: Upload Linux Zip
