@@ -1,6 +1,6 @@
 {
   "name": "gtps-backup",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "a tools to backup growtopia private server",
   "main": "index.js",
   "scripts": {
