@@ -45,10 +45,8 @@ jobs:
             - name: Generate changelog
               id: changelog
               run: |
-                  echo 'changelog<<EOF' >> $GITHUB_ENV
-                  git log --pretty=format:"- %h - %s" | sed 's/$/<br\/>/'
-                  echo 'EOF' >> $GITHUB_ENV
-
+                  echo "::set-output name=changelog::$(git log --pretty=format:"- %h - %s" | sed 's/$/<br\/>/')"
+                  
             - name: Get version
               id: packagejson
               uses: martinbeentjes/npm-get-version-action@v1.1.0
@@ -65,7 +63,7 @@ jobs:
                       Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
                       
                       🔄️ Changelog
-                        ${{ steps.changelog.outputs.changelog }}
+                      ${{ steps.changelog.outputs.changelog }}
                   draft: false
                   prerelease: false
 
