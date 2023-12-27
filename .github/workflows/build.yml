@@ -104,7 +104,7 @@ jobs:
                         body: `Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
 
                         🔄️ Changelog:
-                        ${{ steps.changelog.outputs.result }}`
+                          ${{ steps.changelog.outputs.result }}`
                       });
 
             - name: Upload Linux Zip
