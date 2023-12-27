@@ -52,7 +52,7 @@ jobs:
             - name: Generate changelog
               id: changelog
               run: |
-                  echo "::set-output name=changelog::$(git log --pretty=format:"- %h - %s" | sed 's/$/<br\/>/')"
+                  echo "::set-output name=changelog::$(git log -1 --pretty=format:"- %h - %s" ${{ github.sha }})"
 
             - name: Get version
               id: packagejson
