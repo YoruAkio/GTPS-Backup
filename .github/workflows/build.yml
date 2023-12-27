@@ -92,6 +92,9 @@ jobs:
                       const changelog = compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
                       return changelog.slice(1, changelog.length - 1);
 
+            - name: Output the changel0
+              run: echo "${{ steps.changelog.outputs.result }}"
+
             - name: Update Release
               id: update_release
               uses: actions/github-script@v4
