@@ -78,34 +78,18 @@ jobs:
                       const sortedTags = data.map(release => release.tag_name).sort((a, b) => b.localeCompare(a, undefined, { numeric: true, ignorePunctuation: true }));
                       return sortedTags[1];
 
-            - name: Generate changelog
-              id: changelog
-              uses: actions/github-script@v4
-              with:
-                  script: |
-                      const compare = await github.repos.compareCommits({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        base: ${{ steps.second_latest_release.outputs.result }},
-                        head: 'v${{ steps.packagejson.outputs.current-version }}'
-                      });
-                      return compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
-
             - name: Update Release
               id: update_release
               uses: actions/github-script@v4
               with:
                   script: |
-                      const changelog = ${{ steps.changelog.outputs.result }};
-                      const cleanChangelog = changelog.slice(1, changelog.length - 1);
                       await github.repos.updateRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         release_id: ${{ steps.create_release.outputs.id }},
-                        body: `Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
+                        body: `# 🔄️ Changelog
 
-                        🔄️ Changelog:
-                        ${cleanChangelog}`
+                        **Full Changelog: [\`v${{ steps.second_latest_release.outputs.result }}...v${{ steps.packagejson.outputs.current-version }}\`](https://github.com/YoruAkio/GTPS-Backup/compare/v${{ steps.second_latest_release.outputs.result }}...v${{ steps.packagejson.outputs.current-version }})**`
                       });
 
             - name: Upload Linux Zip
