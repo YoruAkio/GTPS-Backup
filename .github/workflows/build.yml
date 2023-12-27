@@ -53,6 +53,18 @@ jobs:
               id: packagejson
               uses: martinbeentjes/npm-get-version-action@v1.1.0
 
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: v${{ steps.packagejson.outputs.current-version }}
+                  release_name: GTPS-Backup v${{ steps.packagejson.outputs.current-version }}
+                  body: Creating release...
+                  draft: false
+                  prerelease: false
+
             - name: Get latest release
               id: latest_release
               uses: actions/github-script@v4
@@ -77,21 +89,20 @@ jobs:
                       });
                       return compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
 
-            - name: Create Release
-              id: create_release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Update Release
+              id: update_release
+              uses: actions/github-script@v4
               with:
-                  tag_name: v${{ steps.packagejson.outputs.current-version }}
-                  release_name: GTPS-Backup v${{ steps.packagejson.outputs.current-version }}
-                  body: |
-                      Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
+                  script: |
+                      await github.repos.updateRelease({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        release_id: ${{ steps.create_release.outputs.id }},
+                        body: `Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
 
-                      🔄️ Changelog:
-                      ${{ steps.changelog.outputs.result }}
-                  draft: false
-                  prerelease: false
+                        🔄️ Changelog:
+                        ${{ steps.changelog.outputs.result }}`
+                      });
 
             - name: Upload Linux Zip
               uses: actions/upload-release-asset@v1
