@@ -29,18 +29,18 @@ jobs:
 
             - name: Zip executables and specified files
               run: |
-                  mkdir backup-linux
+                  mkdir gtps-backup-linux
                   cp LICENSE backup-linux
                   cp config.js.example backup-linux
                   cp README.md backup-linux
                   cp backup-linux backup-linux
-                  zip gtps-backup-linux.zip backup-linux/*
-                  mkdir backup-win
+                  zip gtps-backup-linux.zip gtps-backup-linux/*
+                  mkdir gtps-backup-win
                   cp LICENSE backup-win
                   cp config.js.example backup-win
                   cp README.md backup-win
                   cp backup-win.exe backup-win
-                  zip gtps-backup-win.zip backup-win/*
+                  zip gtps-backup-win.zip gtps-backup-win/*
 
             - name: Get version
               id: packagejson
