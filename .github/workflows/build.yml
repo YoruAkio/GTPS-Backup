@@ -90,7 +90,7 @@ jobs:
                         release_id: ${{ steps.create_release.outputs.id }},
                         body: `# 🔄️ Changelog
 
-                        **Full Changelog: [\`${latestVersion}...v${{ steps.packagejson.outputs.current-version }}\`](https://github.com/YoruAkio/GTPS-Backup/compare/v${latestVersion}...v${{ steps.packagejson.outputs.current-version }})**`
+                        **Full Changelog: [\`${latestVersion}...v${{ steps.packagejson.outputs.current-version }}\`](https://github.com/YoruAkio/GTPS-Backup/compare/${latestVersion}...v${{ steps.packagejson.outputs.current-version }})**`
                       });
 
             - name: Upload Linux Zip
