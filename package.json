@@ -1,54 +1,54 @@
 {
-    "name": "gtps-backup",
-    "version": "0.1.0",
-    "description": "a tools to backup growtopia private server",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "build:win": "pkg index.js --targets node18-win-x64 --output gtps-backup.exe",
-        "build:linux": "pkg index.js --targets node18-linux-x64 --output gtps-backup -d"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/YoruAkio/GTPS-Backup.git"
-    },
-    "keywords": [
-        "node",
-        "gtps"
+  "name": "gtps-backup",
+  "version": "0.1.1",
+  "description": "a tools to backup growtopia private server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build:win": "pkg index.js --targets node18-win-x64 --output gtps-backup.exe",
+    "build:linux": "pkg index.js --targets node18-linux-x64 --output gtps-backup -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoruAkio/GTPS-Backup.git"
+  },
+  "keywords": [
+    "node",
+    "gtps"
+  ],
+  "author": "YoruAkio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YoruAkio/GTPS-Backup/issues"
+  },
+  "homepage": "https://github.com/YoruAkio/GTPS-Backup#readme",
+  "dependencies": {
+    "cross-fetch": "^4.0.0",
+    "discord.js": "^14.14.1",
+    "express": "^4.18.2",
+    "figlet": "^1.7.0",
+    "fs": "^0.0.1-security",
+    "gradient-string": "^2.0.2",
+    "log4js": "^6.9.1",
+    "pkg": "^5.8.1"
+  },
+  "bin": {
+    "gtps-backup": "./index.js"
+  },
+  "pkg": {
+    "assets": [
+      "utils/*",
+      "misc/*",
+      "lib/*"
     ],
-    "author": "YoruAkio",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/YoruAkio/GTPS-Backup/issues"
-    },
-    "homepage": "https://github.com/YoruAkio/GTPS-Backup#readme",
-    "dependencies": {
-        "cross-fetch": "^4.0.0",
-        "discord.js": "^14.14.1",
-        "express": "^4.18.2",
-        "figlet": "^1.7.0",
-        "fs": "^0.0.1-security",
-        "gradient-string": "^2.0.2",
-        "log4js": "^6.9.1",
-        "pkg": "^5.8.1"
-    },
-    "bin": {
-        "gtps-backup": "./index.js"
-    },
-    "pkg": {
-      "assets": [
-        "utils/*",
-        "misc/*",
-        "lib/*"
-      ],
-      "ignore": [
-        "node_modules/**/*"
-      ],
-      "targets": [
-        "node18-linux-x64",
-        "node18-win-x64"
-      ],
-      "outputPath": "./",
-      "outputName": "gtps-backup"
-    }
+    "ignore": [
+      "node_modules/**/*"
+    ],
+    "targets": [
+      "node18-linux-x64",
+      "node18-win-x64"
+    ],
+    "outputPath": "./",
+    "outputName": "gtps-backup"
+  }
 }
