@@ -83,13 +83,14 @@ jobs:
               uses: actions/github-script@v4
               with:
                   script: |
+                      const secondLatestVersion = `${{ steps.second_latest_release.outputs.result }}`.replace(/"/g, '');
                       await github.repos.updateRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         release_id: ${{ steps.create_release.outputs.id }},
                         body: `# 🔄️ Changelog
 
-                        **Full Changelog: [\`v${{ steps.second_latest_release.outputs.result }}...v${{ steps.packagejson.outputs.current-version }}\`](https://github.com/YoruAkio/GTPS-Backup/compare/v${{ steps.second_latest_release.outputs.result }}...v${{ steps.packagejson.outputs.current-version }})**`
+                        **Full Changelog: [\`v${secondLatestVersion}...v${{ steps.packagejson.outputs.current-version }}\`](https://github.com/YoruAkio/GTPS-Backup/compare/v${secondLatestVersion}...v${{ steps.packagejson.outputs.current-version }})**`
                       });
 
             - name: Upload Linux Zip
