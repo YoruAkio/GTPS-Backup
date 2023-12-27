@@ -89,7 +89,8 @@ jobs:
                         base: ${{ steps.second_latest_release.outputs.result }},
                         head: 'v${{ steps.packagejson.outputs.current-version }}'
                       });
-                      return compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
+                      const changelog = compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
+                      return changelog.slice(1, changelog.length - 1);
 
             - name: Update Release
               id: update_release
