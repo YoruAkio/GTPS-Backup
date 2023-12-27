@@ -59,7 +59,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: ${{ steps.packagejson.outputs.current-version }}
+                  tag_name: v${{ steps.packagejson.outputs.current-version }}
                   release_name: GTPS-Backup v${{ steps.packagejson.outputs.current-version }}
                   body: |
                       Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
