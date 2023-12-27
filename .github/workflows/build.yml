@@ -89,17 +89,15 @@ jobs:
                         base: ${{ steps.second_latest_release.outputs.result }},
                         head: 'v${{ steps.packagejson.outputs.current-version }}'
                       });
-                      const changelog = compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
-                      return changelog.slice(1, changelog.length - 1);
-
-            - name: Output the changel0
-              run: echo "${{ steps.changelog.outputs.result }}"
+                      return compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
 
             - name: Update Release
               id: update_release
               uses: actions/github-script@v4
               with:
                   script: |
+                      const changelog = ${{ steps.changelog.outputs.result }};
+                      const cleanChangelog = changelog.slice(1, changelog.length - 1);
                       await github.repos.updateRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
@@ -107,7 +105,7 @@ jobs:
                         body: `Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
 
                         🔄️ Changelog:
-                          ${{ steps.changelog.outputs.result }}`
+                        ${cleanChangelog}`
                       });
 
             - name: Upload Linux Zip
