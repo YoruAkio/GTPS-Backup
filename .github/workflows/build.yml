@@ -49,14 +49,33 @@ jobs:
                   cp backup-win.exe gtps-backup-win
                   zip gtps-backup-win.zip gtps-backup-win/*
 
-            - name: Generate changelog
-              id: changelog
-              run: |
-                  echo "::set-output name=changelog::$(git log -1 --pretty=format:"- %h - %s" ${{ github.sha }})"
-
             - name: Get version
               id: packagejson
               uses: martinbeentjes/npm-get-version-action@v1.1.0
+
+            - name: Get latest release
+              id: latest_release
+              uses: actions/github-script@v4
+              with:
+                  script: |
+                      const { data } = await github.repos.getLatestRelease({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo
+                      });
+                      return data.tag_name;
+
+            - name: Generate changelog
+              id: changelog
+              uses: actions/github-script@v4
+              with:
+                  script: |
+                      const compare = await github.repos.compareCommits({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        base: ${{ steps.latest_release.outputs.result }},
+                        head: 'v${{ steps.packagejson.outputs.current-version }}'
+                      });
+                      return compare.data.commits.map(commit => `- ${commit.sha} - ${commit.commit.message}`).join('\n');
 
             - name: Create Release
               id: create_release
@@ -69,8 +88,8 @@ jobs:
                   body: |
                       Within this version we have made several changes. which is presented from the necessary changes and presented from a partial request of this repository. Here's a list of all the changes:
 
-                      🔄️ Changelog
-                      ${{ steps.changelog.outputs.changelog }}
+                      🔄️ Changelog:
+                      ${{ steps.changelog.outputs.result }}
                   draft: false
                   prerelease: false
 
