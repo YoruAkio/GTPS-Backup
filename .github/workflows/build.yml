@@ -40,7 +40,7 @@ jobs:
                   cp LICENSE gtps-backup-linux
                   cp config.js.example gtps-backup-linux
                   cp -rf misc/* gtps-backup-linux
-                  mkdir gtps-backup-linux
+                  mkdir gtps-backup-linux/Backup
                   cp README.md gtps-backup-linux
                   cp backup-linux gtps-backup-linux
                   zip gtps-backup-linux.zip gtps-backup-linux/*
@@ -48,7 +48,7 @@ jobs:
                   cp LICENSE gtps-backup-win
                   cp config.js.example gtps-backup-win
                   cp -rf misc/* gtps-backup-win
-                  mkdir gtps-backup-win
+                  mkdir gtps-backup-win/Backup
                   cp README.md gtps-backup-win
                   cp backup-win.exe gtps-backup-win
                   zip gtps-backup-win.zip gtps-backup-win/*
