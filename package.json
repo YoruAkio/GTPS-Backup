@@ -1,6 +1,6 @@
 {
-  "name": "gtps-backup",
-  "version": "0.3.6",
+  "name": "backup-gtps",
+  "version": "0.3.7",
   "description": "a tools to backup growtopia private server",
   "main": "index.js",
   "scripts": {
@@ -49,6 +49,6 @@
       "node18-win-x64"
     ],
     "outputPath": "./",
-    "outputName": "gtps-backup"
+    "outputName": "backup-gtps"
   }
 }
