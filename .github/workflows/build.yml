@@ -43,7 +43,6 @@ jobs:
                   cp LICENSE gtps-backup-linux
                   cp config.js.example gtps-backup-linux
                   cp -r misc gtps-backup-linux/misc
-                  mkdir gtps-backup-linux/Backup
                   cp README.md gtps-backup-linux
                   cp backup-linux gtps-backup-linux
                   zip -r gtps-backup-linux.zip gtps-backup-linux/*
