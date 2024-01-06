@@ -6,6 +6,7 @@ on:
             - 'README.md'
             - 'LICENSE'
             - 'config.js.example'
+            - 'docs.md'
 
 jobs:
     build:
@@ -37,6 +38,7 @@ jobs:
             - name: Zip executables and specified files
               run: |
                   mkdir gtps-backup-linux
+                  mkdir gtps-backup-linux/misc
                   cp LICENSE gtps-backup-linux
                   cp config.js.example gtps-backup-linux
                   cp -rf misc/* gtps-backup-linux/misc
@@ -45,6 +47,7 @@ jobs:
                   cp backup-linux gtps-backup-linux
                   zip gtps-backup-linux.zip gtps-backup-linux/*
                   mkdir gtps-backup-win
+                  mkdir gtps-backup-win/misc
                   cp LICENSE gtps-backup-win
                   cp config.js.example gtps-backup-win
                   cp -rf misc/* gtps-backup-win/misc
