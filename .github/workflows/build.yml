@@ -39,7 +39,7 @@ jobs:
             - name: Zip executables and specified files
               run: |
                   mkdir gtps-backup-linux
-                  mkdir gtps-backup-linux/misc
+                  mkdir gtps-backup-linux/Backup
                   cp LICENSE gtps-backup-linux
                   cp config.js.example gtps-backup-linux
                   cp -r misc gtps-backup-linux/misc
@@ -48,11 +48,10 @@ jobs:
                   cp backup-linux gtps-backup-linux
                   zip -r gtps-backup-linux.zip gtps-backup-linux/*
                   mkdir gtps-backup-win
-                  mkdir gtps-backup-win/misc
+                  mkdir gtps-backup-win/Backup
                   cp LICENSE gtps-backup-win
                   cp config.js.example gtps-backup-win
                   cp -r misc gtps-backup-win/misc
-                  mkdir gtps-backup-win/Backup
                   cp README.md gtps-backup-win
                   cp backup-win.exe gtps-backup-win
                   zip -r gtps-backup-win.zip gtps-backup-win/*
