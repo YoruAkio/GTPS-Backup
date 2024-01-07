@@ -133,4 +133,4 @@ async function backupDatabase() {
 backupDatabase();
 
 // Then run backup repeatedly after the cooldown period
-setInterval(backupDatabase, config.serverConfig.backupCooldown * 1000 * 60);
+setInterval(backupDatabase, config.serverConfig.backupCooldown * 1000);
