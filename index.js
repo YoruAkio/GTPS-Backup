@@ -132,6 +132,5 @@ async function backupDatabase() {
 // Run backup immediately when the program starts
 backupDatabase();
 helper.checkPackageVersion();
-console.log(helper.getPackageZip());
 // Then run backup repeatedly after the cooldown period
 setInterval(backupDatabase, config.serverConfig.backupCooldown * 1000);
