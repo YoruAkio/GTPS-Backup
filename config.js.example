@@ -1,0 +1,21 @@
+module.exports = {
+    serverConfig: {
+        folderPlayer: '../database/players/',
+        folderWorld: '../database/worlds/',
+        folderBackup: './Backup/',
+        databaseFolder: '../database',
+
+        archiveName: 'ServerBackup-Database',
+        archivePassword: 'ASD',
+        archivePasswordiSActive: false,
+        archiveExpires: 1, // in days, default is 14 days
+        backupCooldown: 60, // in seconds or 1 * 60 = 1 minute
+        backupAllDatabase: true, // true or false, backup all files in database folder
+    },
+    discordConfig: {
+        webhookUrl: '', // https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+        webhookName: '', // https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+        channelID: '', // https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-
+        messageID: '', // https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-
+    },
+};
