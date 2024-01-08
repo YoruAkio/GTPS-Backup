@@ -30,7 +30,9 @@
     "fs": "^0.0.1-security",
     "gradient-string": "^2.0.2",
     "log4js": "^6.9.1",
-    "pkg": "^5.8.1"
+    "pkg": "^5.8.1",
+    "semver": "^7.5.4",
+    "superagent": "^8.1.2"
   },
   "bin": {
     "gtps-backup": "./index.js"
