@@ -54,6 +54,8 @@ jobs:
                   cp README.md gtps-backup-win
                   cp backup-win.exe gtps-backup-win
                   zip -r gtps-backup-win.zip gtps-backup-win/*
+                  zip backup-win.zip backup-win.exe
+                  zip backup-linux.zip backup-linux
 
             - name: Get version
               id: packagejson
@@ -118,3 +120,23 @@ jobs:
                   asset_path: ./gtps-backup-win.zip
                   asset_name: gtps-backup-win.zip
                   asset_content_type: application/zip
+
+            - name: Upload Linux Executable
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./backup-linux.zip
+                  asset_name: backup-linux.zip
+                  asset_content_type: application/octet-stream
+
+            - name: Upload Windows Executable
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./backup-win.zip
+                  asset_name: backup-win.zip
+                  asset_content_type: application/octet-stream
