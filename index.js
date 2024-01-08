@@ -130,7 +130,16 @@ async function backupDatabase() {
 }
 
 // Run backup immediately when the program starts
-backupDatabase();
-helper.checkPackageVersion();
-// Then run backup repeatedly after the cooldown period
-setInterval(backupDatabase, config.serverConfig.backupCooldown * 1000);
+helper.checkPackageVersion().then(hasUpdate => {
+    if (hasUpdate) {
+        helper.getPackageZip().then(() => {
+            console.log(
+                'Package downloaded. You can now proceed with the update.',
+            );
+        });
+    } else {
+        backupDatabase();
+        // Then run backup repeatedly after the cooldown period
+        setInterval(backupDatabase, config.serverConfig.backupCooldown * 1000);
+    }
+});

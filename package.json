@@ -1,6 +1,6 @@
 {
   "name": "backup-gtps",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "description": "a tools to backup growtopia private server",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/YoruAkio/GTPS-Backup#readme",
   "dependencies": {
+    "cli-progress": "^3.12.0",
     "cross-fetch": "^4.0.0",
+    "crypto": "^1.0.1",
     "discord.js": "^14.14.1",
     "express": "^4.18.2",
     "figlet": "^1.7.0",
@@ -31,6 +33,8 @@
     "gradient-string": "^2.0.2",
     "log4js": "^6.9.1",
     "pkg": "^5.8.1",
+    "readline-sync": "^1.4.10",
+    "request": "^2.88.2",
     "semver": "^7.5.4",
     "superagent": "^8.1.2"
   },
